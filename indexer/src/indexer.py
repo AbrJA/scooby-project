@@ -9,6 +9,9 @@ class Indexer:
         self.qdrant = qdrant
         self.embedder = embedder
 
+    """
+    Run the indexing process.
+    """
     def run_indexing(self, dir_images, file_csv):
         # 1. Download files
         self.downloader.get_files()
