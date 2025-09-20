@@ -23,10 +23,7 @@ class Indexer:
         # 4. Ingest data
         information = pd.read_csv(file_csv)
         image_files = [f for f in os.listdir(dir_images) if f.endswith('.jpg')]
-
-        image_files = image_files[0:10]
         total_images = len(image_files)
-
         for i, path in enumerate(image_files):
             image = Image.open(os.path.join(dir_images, path))
             vector = self.embedder.project_image(image)
