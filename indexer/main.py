@@ -1,8 +1,8 @@
 import logging
-from repositories.qdrant import Qdrant
-from repositories.embedder import Embedder
-from repositories.downloader import Downloader
-from indexer import Indexer
+from src.repositories.qdrant import Qdrant
+from src.repositories.embedder import Embedder
+from src.repositories.downloader import Downloader
+from src.indexer import Indexer
 def main():
     downloader = Downloader()
     embedder = Embedder()

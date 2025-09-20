@@ -1,6 +1,6 @@
 import logging
 
-from config import Configuration
+from src.config import Configuration
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import VectorParams, Distance, PointStruct
 

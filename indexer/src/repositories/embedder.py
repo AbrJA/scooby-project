@@ -1,6 +1,6 @@
 import logging
 
-from config import Configuration
+from src.config import Configuration
 from PIL import Image
 from uform import get_model, Modality
 

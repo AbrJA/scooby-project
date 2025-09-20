@@ -2,7 +2,7 @@ import gdown
 import logging
 import zipfile
 
-from config import Configuration
+from src.config import Configuration
 
 class Downloader:
     """

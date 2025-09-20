@@ -1,10 +1,6 @@
 import os
-import logging
 import pandas as pd
 from PIL import Image
-from repositories.downloader import Downloader
-from repositories.embedder import Embedder
-from repositories.qdrant import Qdrant
 
 class Indexer:
     def __init__(self, downloader, qdrant, embedder):
@@ -14,7 +10,7 @@ class Indexer:
 
     def run_indexing(self, dir_images, file_csv):
         # 1. Download files
-        # self.downloader.get_files()
+        self.downloader.get_files()
 
         # 2. Set up Qdrant
         self.qdrant.create_client()
