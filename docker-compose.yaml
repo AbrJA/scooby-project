@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.15.1
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./storage:/qdrant/storage
+    restart: unless-stopped
+
+  api:
+    build: ./api
+    container_name: api
+    depends_on:
+      - qdrant
+    environment:
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+    ports:
+      - "8000:8000"
+
+  indexer:
+    build: ./indexer
+    container_name: indexer
+    depends_on:
+      - qdrant
+    environment:
+      - QDRANT_HOST=localhost
+      - QDRANT_PORT=6333
+      - QDRANT_COLLECTION=adoption
+      - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
+      - EMBEDDER_SIZE=256
+      - DOWNLOADER_URL=https://drive.google.com/uc?id=1pG0eI1cczWfgLs5L47SkVzmpXkoZ0Uc9
+      - DOWNLOADER_PATH=adoption.zip
+    command: ["python", "main.py"]
+
+# docker compose up -d
