@@ -30,9 +30,9 @@ The project consists of three main services, all orchestrated by Docker Compose:
 |   qdrant       | <--------|     indexer     |
 | (Vector DB)    |          |   (Data Prep)   |
 +----------------+          +-----------------+
-        ^                            ^
-        |                            |
-        |                            |
+        ^
+        |
+        |
 +----------------+          +-----------------+
 |    api         | <--------|   frontend      |
 | (FastAPI)      |          |   (UI) TO DO    |
