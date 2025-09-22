@@ -81,10 +81,6 @@ The project consists of three main services, all orchestrated by Docker Compose:
 
 Once all services are running, the API is available at `http://localhost:8000`.
 
-## 👩‍💻 Usage
-
-Once all services are running, the API is available at `http://localhost:8000`.
-
 ### API Documentation
 
 The FastAPI service automatically generates interactive API documentation. You can access it in your browser:
@@ -104,14 +100,12 @@ The API has a single, flexible search endpoint that accepts a query as either a 
 
 The endpoint requires **exactly one** of the following parameters to be provided in the form data:
 
-```
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | **`id`** | `int` | (Optional) The specific point ID to search for (e.g., to find similar items to a known one). |
 | **`text`** | `str` | (Optional) A text query (e.g., "a fluffy golden retriever") to find similar items. |
 | **`image`** | `file` | (Optional) An image file to use for finding similar items. |
 | **`limit`** | `int` | The maximum number of similar items to return. (Default: 5) |
-```
 
 #### Example Usage
 
