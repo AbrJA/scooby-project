@@ -29,6 +29,7 @@ services:
     environment:
       - QDRANT_URL=qdrant
       - QDRANT_PORT=6333
+      - QDRANT_COLLECTION=adoption
       - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
       - EMBEDDER_SIZE=256
     ports:
