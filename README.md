@@ -25,6 +25,7 @@ The project consists of three main services, all orchestrated by Docker Compose:
 2.  **`indexer`**: A service that handles the data preparation. It downloads a dataset (e.g., a `.zip` file of images and captions), uses the UFORM model to generate embeddings, and indexes them into the `qdrant` collection.
 3.  **`api`**: A FastAPI application that serves as the public interface for the search engine. It accepts search queries (text or image), generates embeddings on the fly, and uses the Qdrant client to perform a nearest-neighbor search.
 
+```
 +----------------+          +-----------------+
 |   qdrant       | <--------|     indexer     |
 | (Vector DB)    |          |   (Data Prep)   |
@@ -37,6 +38,7 @@ The project consists of three main services, all orchestrated by Docker Compose:
 |    api         | <-------- (User Requests)
 | (FastAPI)      |
 +----------------+
+```
 
 ## 🔧 Setup & Installation
 
@@ -117,6 +119,7 @@ docker-compose down
 
 ## 📂 Project Structure
 
+```
 .
 ├── api/                  # FastAPI application
 │   ├── Dockerfile
@@ -130,3 +133,4 @@ docker-compose down
 ├── .gitignore
 ├── docker-compose.yml
 └── README.md             # This file
+```
