@@ -51,8 +51,8 @@ The project consists of three main services, all orchestrated by Docker Compose:
 
 1.  **Clone the Repository**:
     ```bash
-    git clone <your-repository-url>
-    cd <your-project-directory>
+    git clone https://github.com/AbrJA/scooby-project
+    cd scooby-project
     ```
 
 2.  **Configure Environment Variables (Optional)**:
@@ -81,6 +81,10 @@ The project consists of three main services, all orchestrated by Docker Compose:
 
 Once all services are running, the API is available at `http://localhost:8000`.
 
+## 👩‍💻 Usage
+
+Once all services are running, the API is available at `http://localhost:8000`.
+
 ### API Documentation
 
 The FastAPI service automatically generates interactive API documentation. You can access it in your browser:
@@ -88,26 +92,59 @@ The FastAPI service automatically generates interactive API documentation. You c
 * **Swagger UI**: `http://localhost:8000/docs`
 * **ReDoc**: `http://localhost:8000/redoc`
 
-### Example API Endpoints
+### The `/search` Endpoint
+
+The API has a single, flexible search endpoint that accepts a query as either a `text` string, an `image` file, or a Qdrant point `id`.
+
+* **Endpoint**: `POST /search`
+* **Method**: `POST`
+* **Content Type**: `multipart/form-data`
+
+#### Parameters
+
+The endpoint requires **exactly one** of the following parameters to be provided in the form data:
+
+```
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| **`id`** | `int` | (Optional) The specific point ID to search for (e.g., to find similar items to a known one). |
+| **`text`** | `str` | (Optional) A text query (e.g., "a fluffy golden retriever") to find similar items. |
+| **`image`** | `file` | (Optional) An image file to use for finding similar items. |
+| **`limit`** | `int` | The maximum number of similar items to return. (Default: 5) |
+```
+
+#### Example Usage
 
 **1. Search with a Text Query**
 
-* **Endpoint**: `POST /search/text`
-* **Body**:
-    ```json
-    {
-      "query": "A black cat wearing a wizard hat"
-    }
-    ```
-* **Example Response**: A JSON array of search results, each with a score and payload.
+To search using text, provide the `text` parameter in your request body.
 
-**2. Search with an Image**
+```bash
+curl -X POST "http://localhost:8000/search" \
+  -H "Content-Type: multipart/form-data" \
+  -F "text=A black cat with a funny hat"
+```
 
-* **Endpoint**: `POST /search/image`
-* **Body**: Upload an image file directly.
-* **Example Response**: A JSON array of search results, similar to the text search.
+2. Search with an Image
 
----
+To search with an image, provide the image file.
+
+```bash
+curl -X POST "http://localhost:8000/search" \
+  -H "Content-Type: multipart/form-data" \
+  -F "image=@/path/to/your/image.jpg"
+```
+(Replace /path/to/your/image.jpg with the actual path to your image file.)
+
+3. Search by ID
+
+To find items similar to a specific item already in the database, provide its id.
+
+```bash
+curl -X POST "http://localhost:8000/search" \
+  -H "Content-Type: multipart/form-data" \
+  -F "id=123"
+```
 
 ## 🛑 Stopping the Services
 
