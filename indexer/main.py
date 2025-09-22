@@ -3,6 +3,7 @@ from src.repositories.qdrant import Qdrant
 from src.repositories.embedder import Embedder
 from src.repositories.downloader import Downloader
 from src.indexer import Indexer
+
 def main():
     downloader = Downloader()
     embedder = Embedder()

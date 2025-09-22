@@ -1,8 +1,11 @@
-version: "3.9"
-
 services:
   qdrant:
-    image: qdrant/qdrant:v1.15.1
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM qdrant/qdrant:v1.15.1
+        RUN apt-get update -yq && apt-get install -yqq curl
+    # image: qdrant/qdrant:v1.15.1
     container_name: qdrant
     ports:
       - "6333:6333"
@@ -10,25 +13,34 @@ services:
     volumes:
       - ./storage:/qdrant/storage
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
 
-  api:
-    build: ./api
-    container_name: api
-    depends_on:
-      - qdrant
-    environment:
-      - QDRANT_HOST=qdrant
-      - QDRANT_PORT=6333
-    ports:
-      - "8000:8000"
+  # api:
+  #   build: ./api
+  #   container_name: api
+  #   depends_on:
+  #     - qdrant
+  #   environment:
+  #     - QDRANT_HOST=qdrant
+  #     - QDRANT_PORT=6333
+  #     - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
+  #     - EMBEDDER_SIZE=256
+  #   ports:
+  #     - "8000:8000"
 
   indexer:
     build: ./indexer
     container_name: indexer
     depends_on:
-      - qdrant
+      qdrant:
+        condition: service_healthy
     environment:
-      - QDRANT_HOST=localhost
+      - QDRANT_URL=qdrant
       - QDRANT_PORT=6333
       - QDRANT_COLLECTION=adoption
       - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
