@@ -119,7 +119,7 @@ curl -X POST "http://localhost:8000/search" \
   -F "text=A black cat with a funny hat"
 ```
 
-2. Search with an Image
+**2. Search with an Image**
 
 To search with an image, provide the image file.
 
@@ -130,7 +130,7 @@ curl -X POST "http://localhost:8000/search" \
 ```
 (Replace /path/to/your/image.jpg with the actual path to your image file.)
 
-3. Search by ID
+**3. Search by ID**
 
 To find items similar to a specific item already in the database, provide its id.
 

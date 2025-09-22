@@ -20,18 +20,19 @@ services:
       retries: 5
       start_period: 10s
 
-  # api:
-  #   build: ./api
-  #   container_name: api
-  #   depends_on:
-  #     - qdrant
-  #   environment:
-  #     - QDRANT_HOST=qdrant
-  #     - QDRANT_PORT=6333
-  #     - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
-  #     - EMBEDDER_SIZE=256
-  #   ports:
-  #     - "8000:8000"
+  api:
+    build: ./api
+    container_name: api
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    environment:
+      - QDRANT_URL=qdrant
+      - QDRANT_PORT=6333
+      - EMBEDDER_NAME=unum-cloud/uform3-image-text-english-small
+      - EMBEDDER_SIZE=256
+    ports:
+      - "8000:8000"
 
   indexer:
     build: ./indexer
