@@ -30,14 +30,13 @@ The project consists of three main services, all orchestrated by Docker Compose:
 |   qdrant       | <--------|     indexer     |
 | (Vector DB)    |          |   (Data Prep)   |
 +----------------+          +-----------------+
-^
-|
-|
-|
-+----------------+
-|    api         | <-------- (User Requests)
-| (FastAPI)      |
-+----------------+
+        ^                            ^
+        |                            |
+        |                            |
++----------------+          +-----------------+
+|    api         | <--------|   frontend      |
+| (FastAPI)      |          |   (UI) TO DO    |
++----------------+          +-----------------+
 ```
 
 ## 🔧 Setup & Installation
@@ -139,6 +138,8 @@ curl -X POST "http://localhost:8000/search" \
   -H "Content-Type: multipart/form-data" \
   -F "id=123"
 ```
+
+## 🌐 UI Setup & Access (TO DO)
 
 ## 🛑 Stopping the Services
 
